@@ -1,0 +1,51 @@
+create database emp;
+
+create table departments(id int primary key auto_increment, name varchar(100) not null);
+
+insert into departments(name) values ('sales'),('R&D'),('Finance'),('marketing'),('human resource');
+
+create table employees (id int primary key auto_increment,name varchar(50) not null,position varchar(50) not null,salary decimal(10,2) ,department_id int, foreign key (department_id) references departments(id));
+
+insert into employees(name,position,salary,department_id) values ('john doe','manager',75000,1),('jane smith','de
+veloper',65000,2)('emily johnson','designer',65000,3),('michael brown','analyst',70000,4),('linda green','manager',75000,1),('james white','developer',65000,2),('william black','developer',null,2),('mary blue','hr',50000,5);
+
+//joins//
+
+ select e.id,e.name,e.position,e.salary,d.name departments
+    -> from employees e
+    -> join departments d on e.department_id = d.id;
+
+ select e.id,e.name,e.position,e.salary,d.name departments
+    -> from departments d
+    -> left join employees e on e.department_id=d.id;
+
+ select e.id,e.name,e.position,e.salary,d.name departments
+    -> from departments d
+    -> right join employees e on e.department_id=d.id;
+
+ select e.id,e.name,e.position,e.salary,d.name departments
+    -> from departments d
+    -> left join employees e on e.department_id=d.id
+    -> union
+    -> select e.id,e.name,e.position,e.salary,d.name departments
+    -> from departments d
+    -> right join employees e on e.department_id=d.id;
+
+
+-------------------------
+
+select departments.name as department ,sum(employees.salary) as total_salary
+    -> from employees
+    -> join departments on employees.department_id=departments.id
+    -> group by departments.name
+    -> having sum(employees.salary)>100000;
+
+
+-----------------------------------
+
+select max(salary) from employees;
+
+select min(salary) from employees;
+
+
+ 
